@@ -1,0 +1,79 @@
+# Searching for empty columns
+SELECT
+  *
+FROM
+  cars.car_info 
+WHERE 
+  height IS NULL
+  or fuel_type IS NULL
+  or body_style IS NULL
+  or drive_wheels IS NULL
+  or engine_location IS NULL
+  or wheel_base IS NULL
+  or length IS NULL
+  or width IS NULL
+  or num_of_doors IS NULL
+  or curb_weight IS NULL
+  or num_of_cylinders IS NULL
+  or engine_size IS NULL
+  or price IS NULL
+  or compression_ratio IS NULL
+  or horsepower IS NULL
+  or city_mpg IS NULL
+  or highway_mpg IS NULL
+  or fuel_system IS NULL;
+
+
+ ## Fill the missing data for Sedan
+ UPDATE
+  cars.car_info
+SET
+  num_of_doors = "four"
+WHERE
+  make = "dodge"
+  AND fuel_type = "gas"
+  AND body_style = "sedan";
+
+## Fill the missing data for Mazda
+ UPDATE
+  cars.car_info
+SET
+  num_of_doors = "four"
+WHERE
+  make = "mazda"
+  AND fuel_type = "diesel"
+  AND body_style = "sedan"; 
+
+##Double checking if the changes were made
+SELECT
+  *
+FROM
+  cars.car_info 
+WHERE 
+  num_of_doors IS NULL;
+#Check fo Spelling errors
+SELECT
+  DISTINCT num_of_cylinders
+FROM
+  cars.car_info;
+##Correcting the errors
+UPDATE
+  cars.car_info
+SET
+  num_of_cylinders = "two"
+WHERE
+  num_of_cylinders = "tow";
+## Double checking
+SELECT
+  DISTINCT num_of_cylinders
+FROM
+  cars.car_info;
+#Checking for errors in the Compression Ratio
+SELECT
+  MIN(compression_ratio) AS min_compression_ratio,
+  MAX(compression_ratio) AS max_compression_ratio
+FROM
+  cars.car_info;
+#Correction of the error
+DELETE cars.car_info
+WHERE compression_ratio = 70;
